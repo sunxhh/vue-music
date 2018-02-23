@@ -1,17 +1,10 @@
 <template>
-  <div  id="text">{{text}}</div>
+  <div></div>
 </template>
 <script>
 export default {
   data() {
-    return {
-      text: "abc"
-    };
+    return {}
   }
 };
 </script>
-<style>
-#test {
-  color: red;
-}
-</style>

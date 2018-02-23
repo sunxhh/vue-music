@@ -1,12 +1,14 @@
 import Vue from "vue";
-import App from "./app.vue";
+import App from "./app";
 
-const root = document.createElement("div");
+import 'src/common/stylus/index.styl';
+import fastclick from "fastclick";
 
-document.body.appendChild(root);
+fastclick.attach(document.body);
 
 new Vue({
+    el: '#app',
     render: (h) => {
         return h(App);
     }
-}).$mount(root);
+});

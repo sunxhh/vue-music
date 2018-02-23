@@ -2,18 +2,23 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+// 获得路径
+const resolve = function(src) {
+    return path.join(__dirname, "..", src);
+};
+
 module.exports = {
     entry: {
-        app: path.resolve(__dirname, '../src/index.js')
+        app: resolve('src/index.js')
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, '../dist')
+        path: resolve('dist')
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/index.html')
+            template: resolve('src/index.html')
         })
     ],
     module: {
@@ -37,10 +42,10 @@ module.exports = {
     },
     resolve: {
         // 可以忽略的文件类型
-        extensions: ['.js'],
+        extensions: ['.js', '.vue'],
         // 别名
         alias: {
-            unit: path.resolve(__dirname, './unit')
+            src: resolve('src')
         }
     }
 };
