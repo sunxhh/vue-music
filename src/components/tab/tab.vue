@@ -1,6 +1,6 @@
 <template>
     <div class="tab-wrapper">
-        <router-link tag="div" class="tab-item" to="/recomment">
+        <router-link tag="div" class="tab-item" to="/recommend">
             <span class="tab-link">推荐</span>
         </router-link>
         <router-link tag="div" class="tab-item" to="/singer">
@@ -33,6 +33,7 @@ export default {};
 
         .tab-link {
             color: $color-text-l;
+            padding-bottom: 10px;
         }
 
         &.router-link-active {
