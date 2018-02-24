@@ -1,7 +1,19 @@
 @import 'variable.styl'
+@font-face
+  font-family: 'music-font'
+  src:url('../fonts/music-font.ttf') format('truetype')
+  font-weight: normal
+  font-style: normal
+
+@font-face
+  font-family: 'music-font-k'
+  src:url('../fonts/font/黄自元楷体.ttf') format('truetype')
+  font-weight: normal
+  font-style: normal
+
 body, html
   line-height: 1
-  font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif, 'Droid Sans Fallback'
+  font-family: 'music-font', 'music-font-k', 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif, 'Droid Sans Fallback'
   user-select: none
   -webkit-tap-highlight-color: transparent
   background: $color-background

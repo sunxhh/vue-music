@@ -38,6 +38,16 @@ module.exports = {
                 'css-loader',
                 'stylus-loader'
             ],
+        }, {
+            test: /\.(ttf|woff|svg|eot)$/,
+            use: [
+                'url-loader?name=../fonts/[name].[ext]?[hash]'
+            ],
+        }, {
+            // 图片加载器，雷同file-loader，更适合图片，可以将较小的图片转成base64，减少http请求
+            // 如下配置，将小于8192byte的图片转成base64码
+            test: /\.(png|jpg|gif)$/,
+            loader: 'url-loader?limit=8192&name=../images/[name].[ext]?[hash]',
         }]
     },
     resolve: {
@@ -45,7 +55,9 @@ module.exports = {
         extensions: ['.js', '.vue'],
         // 别名
         alias: {
-            src: resolve('src')
+            src: resolve('src'),
+            common: resolve('src/common'),
+            components: resolve('src/components')
         }
     }
 };
