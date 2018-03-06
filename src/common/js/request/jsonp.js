@@ -1,8 +1,11 @@
 let connect = require("../connect");
 let handleSendData = require("./ajaxData").setUrlencodedData;
 let process = new connect();
+
+// 默认参数
 const defaultConfig = {
     jsonp: 'callback',
+    prefix: "my_jsonp_callback_",
     data: {},
     success: function(result) {
         console.dir(result);
@@ -73,7 +76,7 @@ let sendProcess = {
     setSendData: function(next, data) {
         let req = data.req;
         // 设置返回的毁掉函数 函数名每次唯一所以不存在缓存问题
-        req.data[req.jsonp] = "my_jsonp_callback_" + (++uniqueNumber);
+        req.data[req.jsonp] = req.prefix + (++uniqueNumber);
 
         handleSendData(data);
         next();
@@ -87,9 +90,13 @@ let sendJsonp = function(data) {
     process.data.req = data;
 
     process.handle();
-
-    js.src = `${data.url}?${data.sendData}`;
+    let connectSymbol = "?";
+    if (~data.url.indexOf("?")) {
+        connectSymbol = "&";
+    }
+    js.src = `${data.url}${connectSymbol}${data.sendData}`;
     document.getElementsByTagName("head")[0].appendChild(js);
 };
 sendProcess.init();
+
 module.exports = sendJsonp;

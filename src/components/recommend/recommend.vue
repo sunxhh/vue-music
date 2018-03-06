@@ -4,7 +4,22 @@
     </div>
 </template>
 <script>
-export default {};
+import { getRecommend } from "api/recommend";
+import { ERR_OK } from "api/config";
+export default {
+  created: function() {
+    this._getRecommend();
+  },
+  methods: {
+    _getRecommend: function() {
+      getRecommend().then(res => {
+        if (res.code == ERR_OK) {
+          console.log(res.data.slider);
+        }
+      });
+    }
+  }
+};
 </script>
 <style lang="stylus" scoped>
 @import '~common/stylus/variable.styl';
