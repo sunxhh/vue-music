@@ -1,12 +1,28 @@
 <template>
     <div class="content-wrapper">
-    推荐
+      <slider>
+        <div v-for="item in sliderList" class="pic-content">
+          <a :href="item.linkUrl">
+            <img :src="item.picUrl">
+          </a>
+        </div>
+      </slider>
     </div>
 </template>
 <script>
 import { getRecommend } from "api/recommend";
 import { ERR_OK } from "api/config";
+import Slider from "base/slider/slider";
+
 export default {
+  components: {
+    Slider
+  },
+  data: function() {
+    return {
+      sliderList: []
+    };
+  },
   created: function() {
     this._getRecommend();
   },
@@ -14,7 +30,8 @@ export default {
     _getRecommend: function() {
       getRecommend().then(res => {
         if (res.code == ERR_OK) {
-          console.log(res.data.slider);
+          this.sliderList = res.data.slider;
+          console.log(2);
         }
       });
     }
@@ -26,7 +43,7 @@ export default {
 @import '~common/stylus/mixin.styl';
 
 div {
-    color: #fff;
+  color: #fff;
 }
 </style>
 
