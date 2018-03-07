@@ -31,7 +31,6 @@ export default {
       getRecommend().then(res => {
         if (res.code == ERR_OK) {
           this.sliderList = res.data.slider;
-          console.log(2);
         }
       });
     }
