@@ -21,10 +21,12 @@ export default {
   methods: {
     _setSliderWidth: function() {
       let dom = this.$refs.sliderGroup;
-      let size = getElementClientSize(dom);
+      let width = getElementClientSize(dom).width;
       let childs = dom.childNodes;
+      let wrapperWidth = width*childs.length;
+      dom.style.width = wrapperWidth + "px";
       childs.forEach(child => {
-        child.style.width = size.width + "px";
+        child.style.width = width + "px";
         addClass(child, "slider-item");
       });
     }
@@ -46,6 +48,7 @@ export default {
     overflow: hidden;
 
     .slider-item {
+      display: inline-block;
       img {
         display: block;
         width: 100%;
