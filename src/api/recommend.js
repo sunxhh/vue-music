@@ -2,6 +2,7 @@ import jsonp from './request';
 import { commonParams, options } from './config';
 
 
+// 获取推荐位
 export function getRecommend() {
     let url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg';
     let data = Object.assign({}, commonParams, {
