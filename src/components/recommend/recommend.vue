@@ -1,6 +1,6 @@
 <template>
     <div class="content-wrapper">
-      <slider>
+      <slider v-if="sliderList.length>0" v-bind:slider-number="sliderList.length">
         <div v-for="item in sliderList" class="pic-content">
           <a :href="item.linkUrl">
             <img :src="item.picUrl">
@@ -33,6 +33,9 @@ export default {
           this.sliderList = res.data.slider;
         }
       });
+    },
+    change: function(num){
+      console.log(num);
     }
   }
 };

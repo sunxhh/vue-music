@@ -67,11 +67,12 @@ export default {
     }
   },
   created: function() {},
-  updated: function() {
-    console.log(arguments);
-    // this.resetNode();
-    this.reset();
-    this._setSliderWidth();
+  mounted: function() {
+    setTimeout(()=>{
+      this.resetNode();
+      this.reset();
+      this._setSliderWidth();
+    },50);
   },
   methods: {
     resetNode: function() {
@@ -163,7 +164,7 @@ export default {
       let touchData = this.touchData;
       return { x: pos.x - touchData.startPos.x + touchData.shifting.start.x };
     },
-    // 移动外层元素
+    // 获取移动的位置通过当前的偏移
     getLastPointByShiting: function(shifting) {
       let touchData = this.touchData;
       return {
@@ -186,7 +187,7 @@ export default {
         // 偏移
         shifting: {
           start: {
-            x: 0,
+            x: 0 - this.sliderWidth,
             y: 0
           },
           current: {
@@ -198,9 +199,10 @@ export default {
         movePoint: []
       };
       let scrollGroup = this.$refs.scrollGroup;
-      let childsNumber = scrollGroup.childNodes.length + 2;
+      let childsNumber = scrollGroup.childNodes.length;
       this.touchData.clientWidth = this.sliderWidth;
       this.touchData.wrapperWidth = childsNumber * this.sliderWidth;
+      this.moveWrapper(this.touchData.shifting.start);
     },
     // 移动结束后
     resetMove: function() {
@@ -208,6 +210,29 @@ export default {
       touchData.shifting.start = touchData.shifting.cur;
       touchData.startPos = {};
       touchData.movePoint = [];
+      this.resetPos();
+    },
+    sendData:function(){
+      let touchData = this.touchData;
+      let x = touchData.shifting.start.x;
+      let clientWidth = touchData.clientWidth;
+      let number = Math.round(Math.abs(touchData.shifting.start.x) / clientWidth) - 1;
+      this.$emit('change', number);
+    },
+    resetPos:function(){
+      let touchData = this.touchData;
+      let childsNumber = this.$refs.scrollGroup.childNodes.length;
+      let clientWidth = touchData.clientWidth;
+
+      let number = Math.round(Math.abs(touchData.shifting.start.x) / clientWidth);
+      if(number === 0){
+        touchData.shifting.start.x = 0 - clientWidth*(childsNumber - 2);
+      }
+      else if(number === (childsNumber - 1)){
+        touchData.shifting.start.x = 0 - clientWidth;
+      }
+      this.moveWrapper(touchData.shifting.start);
+      this.sendData();
     },
     // 拖动之后的惯性移动
     inertiaMove: function() {
@@ -256,8 +281,7 @@ export default {
       let lastPoint = touchData.movePoint.slice(-1)[0];
       let difLen = lastPoint.x - touchData.startPos.x;
 
-      let number = Math.floor(Math.abs(touchData.startPos.x) / clientWidth) + 1;
-      let millisecond = 300;
+      let millisecond = 100;
       let countOnceSecond = 60;
       let count = countOnceSecond * millisecond / 1000;
 
