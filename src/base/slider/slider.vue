@@ -1,7 +1,7 @@
 <template>
   <div class="slider-wrapper">
       <div class="slider-group" ref="sliderGroup">
-        <scroll v-bind:slider-width="clientWidth" @change="change">
+        <scroll v-bind:slider-width="clientWidth" @change="mchange">
           <slot></slot>
         </scroll>
       </div>
@@ -14,9 +14,9 @@
 import { getElementClientSize, addClass, removeClass } from "common/js/dom";
 import Scroll from "base/scroll/scroll";
 export default {
-  props:["sliderNumber"],
+  props: ["sliderNumber"],
   data: function() {
-    return {
+    return { 
       clientWidth: 0,
       currentIndex: 0
     };
@@ -26,9 +26,8 @@ export default {
   mounted: function() {
     this._setSliderWidth();
   },
-  computed:{
-    _sliderList: function(){
-      console.log(1);
+  computed: {
+    _sliderList: function() {
       return new Array(this.sliderNumber || 0);
     }
   },
@@ -39,7 +38,7 @@ export default {
       let width = getElementClientSize(sliderGroup).width;
       this.clientWidth = width;
     },
-    change: function(num){
+    mchange: function(num) {
       this.currentIndex = num;
     }
   }
@@ -53,6 +52,7 @@ export default {
   width: 100%;
   overflow: hidden;
   position: relative;
+
   .dot-group {
     height: 50px;
     display: flex;
@@ -61,12 +61,14 @@ export default {
     align-items: center;
     position: absolute;
     bottom: 0px;
+
     .dot-item {
       width: 8px;
       height: 8px;
       border-radius: 10px;
       margin: 0px 5px;
-      background: rgba(144,144,144,1);
+      background: rgba(144, 144, 144, 1);
+
       &.active-dot {
         background: #fff;
         width: 12px;
