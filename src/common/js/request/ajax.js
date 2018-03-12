@@ -133,4 +133,4 @@ sendProcess.init();
 module.exports = {
     sendAjax: sendAjax,
     process: process
-}
+};

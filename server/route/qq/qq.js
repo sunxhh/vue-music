@@ -10,14 +10,10 @@ router.all('/musicu', function(req, res, next) {
         },
         params: req.query
     }).then((response) => {
-        console.log(response);
+        res.send(JSON.stringify(response.data));
     }, (response) => {
-        console.log(response);
-    }).catch((response) => {
-        console.log(response);
-
+        res.send(JSON.stringify(response));
     });
-    res.send("{}");
 });
 
 module.exports = router;
