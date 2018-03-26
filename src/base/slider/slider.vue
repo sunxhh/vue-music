@@ -16,7 +16,7 @@ import Scroll from "base/scroll/scroll";
 export default {
   props: ["sliderNumber"],
   data: function() {
-    return { 
+    return {
       clientWidth: 0,
       currentIndex: 0
     };
@@ -39,6 +39,7 @@ export default {
       this.clientWidth = width;
     },
     mchange: function(num) {
+      console.log("slider" + num);
       this.currentIndex = num;
     }
   }

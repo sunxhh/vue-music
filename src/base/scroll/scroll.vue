@@ -66,13 +66,17 @@ export default {
       return this.sliderWidth;
     }
   },
-  created: function() {},
+  created: function() {
+    this.$on("change", number => {
+      console.log("mmm" + number);
+    });
+  },
   mounted: function() {
-    setTimeout(()=>{
+    setTimeout(() => {
       this.resetNode();
       this.reset();
       this._setSliderWidth();
-    },50);
+    }, 50);
   },
   methods: {
     resetNode: function() {
@@ -212,23 +216,25 @@ export default {
       touchData.movePoint = [];
       this.resetPos();
     },
-    sendData:function(){
+    sendData: function() {
       let touchData = this.touchData;
       let x = touchData.shifting.start.x;
       let clientWidth = touchData.clientWidth;
-      let number = Math.round(Math.abs(touchData.shifting.start.x) / clientWidth) - 1;
-      this.$emit('change', number);
+      let number =
+        Math.round(Math.abs(touchData.shifting.start.x) / clientWidth) - 1;
+      this.$emit("change", number);
     },
-    resetPos:function(){
+    resetPos: function() {
       let touchData = this.touchData;
       let childsNumber = this.$refs.scrollGroup.childNodes.length;
       let clientWidth = touchData.clientWidth;
 
-      let number = Math.round(Math.abs(touchData.shifting.start.x) / clientWidth);
-      if(number === 0){
-        touchData.shifting.start.x = 0 - clientWidth*(childsNumber - 2);
-      }
-      else if(number === (childsNumber - 1)){
+      let number = Math.round(
+        Math.abs(touchData.shifting.start.x) / clientWidth
+      );
+      if (number === 0) {
+        touchData.shifting.start.x = 0 - clientWidth * (childsNumber - 2);
+      } else if (number === childsNumber - 1) {
         touchData.shifting.start.x = 0 - clientWidth;
       }
       this.moveWrapper(touchData.shifting.start);

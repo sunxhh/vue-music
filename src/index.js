@@ -6,7 +6,6 @@ import fastclick from "fastclick";
 import VueLazyload from 'vue-lazyload';
 
 import router from "./router";
-
 // 图片懒加载
 Vue.use(VueLazyload, {
     preLoad: 1.1,
