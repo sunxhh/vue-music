@@ -7,7 +7,7 @@
 import { getSingerList } from "api/qqApi/singer";
 import SingerClass from "common/js/class/singer";
 
-const HOT_NAME = "热门";
+const HOT_NAME = "??";
 const HOT_SINGER_LEN = 10;
 export default {
   created: function() {

@@ -45,6 +45,7 @@ export default {
   created: function() {
     this._getRecommend();
     this._getRecommendList();
+    this.$on("change", function() {});
   },
   methods: {
     _getRecommend: function() {
@@ -58,6 +59,9 @@ export default {
         this.recommendList = res.recomPlaylist.data.v_hot;
         this.isLoading = false;
       });
+    },
+    mchange: function(num) {
+      console.log("recommend" + num);
     }
   }
 };
